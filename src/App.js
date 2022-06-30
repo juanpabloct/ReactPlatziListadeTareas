@@ -13,11 +13,8 @@ function App() {
   const similitudes = tools.filter((tool, index) => {
     const toolLowerCase = tool.tool.toLowerCase();
     const searchLowerCase = busqueda.toLowerCase();
-    const results = toolLowerCase.includes(searchLowerCase);
-    return results;
-
-
-    
+    const result = toolLowerCase.includes(searchLowerCase);
+    return result;
   });
 
   return (
