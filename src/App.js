@@ -15,6 +15,9 @@ function App() {
     const searchLowerCase = busqueda.toLowerCase();
     const results = toolLowerCase.includes(searchLowerCase);
     return results;
+
+
+    
   });
 
   return (
