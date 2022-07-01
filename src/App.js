@@ -4,109 +4,20 @@ import "./App.css";
 import { changeStateTool, deleteTool } from "./store/toolSlider/toolSlice";
 import { memo, useEffect, useState } from "react";
 import { Busqueda } from "./components/input";
+import { Start } from "./components/Home/start";
+import { ButtonRestoreData } from "./components/restoreData/ButtonRestoreData";
 
 function App() {
   const { tools } = useSelector((state) => state);
   const [busqueda, setBusqueda] = useState("");
-  const dispatch = useDispatch();
-
-  const similitudes = tools.filter((tool, index) => {
-    const toolLowerCase = tool.tool.toLowerCase();
-    const searchLowerCase = busqueda.toLowerCase();
-    const results = toolLowerCase.includes(searchLowerCase);
-    return results;
-  });
-
+  const data=tools.habitos
   return (
-    <div className="App">
+    <div style={{display:"flex", flexDirection:"column", alignItems:"center"}}>
       <Busqueda busqueda={busqueda} setBusqueda={setBusqueda} />
-      <ul
-        style={{
-          padding: "0",
-          display: "flex",
-          flexDirection: "column",
-        }}
-      >
-        {busqueda.length === 0
-          ? tools.map((tool, index) => {
-              const styleSubrayed = tool.finish ? "line-through" : "none";
-              return (
-                <div
-                  key={index}
-                  style={{
-                    justifyContent: "space-around",
-                    display: "flex",
-                    textDecorationLine: styleSubrayed,
-                  }}
-                >
-                  <span
-                    style={{ cursor: "pointer" }}
-                    onClick={() => {
-                      const { finish } = tools[index];
-                      dispatch(changeStateTool({ index, finish: !finish }));
-                    }}
-                  >
-                    &#10003;{" "}
-                  </span>
-                  <li
-                    style={{
-                      listStyle: "none",
-                      display: "inline-block",
-                    }}
-                  >
-                    {tool.tool}
-                  </li>
-                  <span
-                    onClick={() => {
-                      dispatch(deleteTool({ index }));
-                    }}
-                  >
-                    X
-                  </span>
-                </div>
-              );
-            })
-          : similitudes.map((tool, index) => {
-              const styleSubrayed = tool.finish ? "line-through" : "none";
-              return (
-                <div
-                  key={index}
-                  style={{
-                    justifyContent: "space-around",
-                    display: "flex",
-                    textDecorationLine: styleSubrayed,
-                  }}
-                >
-                  <span
-                    style={{ cursor: "pointer" }}
-                    onClick={() => {
-                      const { finish } = tools[index];
-                      dispatch(changeStateTool({ index, finish: !finish }));
-                    }}
-                  >
-                    &#10003;{" "}
-                  </span>
-                  <li
-                    style={{
-                      listStyle: "none",
-                      display: "inline-block",
-                    }}
-                  >
-                    {tool.tool}
-                  </li>
-                  <span
-                    onClick={() => {
-                      dispatch(deleteTool({ index }));
-                    }}
-                  >
-                    X
-                  </span>
-                </div>
-              );
-            })}
-      </ul>
-    </div>
-  );
+      <Start busqueda={busqueda} tools={data}/>
+      <ButtonRestoreData/>
+    </div>)
+  
 }
 
 export default memo(App);
