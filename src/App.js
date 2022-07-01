@@ -3,6 +3,7 @@ import "./App.css";
 import { memo, useState } from "react";
 import Busqueda from "./components/input";
 import { Main } from "./components/main";
+import { Reloj } from "./components/Reloj";
 
 function App() {
   const initialState = [
@@ -22,6 +23,7 @@ function App() {
 
   return (
     <div className="App">
+      <Reloj />
       <Busqueda busqueda={busqueda} setBusqueda={setBusqueda} />
       <Main
         busqueda={busqueda}
